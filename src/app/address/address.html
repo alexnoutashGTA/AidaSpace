@@ -1,1 +1,70 @@
-<p>address works!</p>
+<div class="address-page">
+  <section class="address-summary">
+    <h1>Address Details</h1>
+    <p class="summary-text">Use the form below to update your address information.</p>
+    <div class="summary-card">
+      <div><strong>Street:</strong> {{ address().street }}</div>
+      <div><strong>City:</strong> {{ address().city }}</div>
+      <div><strong>State:</strong> {{ address().state }}</div>
+      <div><strong>ZIP:</strong> {{ address().zip }}</div>
+      <div><strong>Country:</strong> {{ address().country }}</div>
+    </div>
+  </section>
+
+  <form class="address-form" (ngSubmit)="onSubmit()">
+    <h2>Edit Address</h2>
+
+    <label for="street">Street</label>
+    <input
+      id="street"
+      name="street"
+      class="input-field"
+      type="text"
+      [ngModel]="address().street"
+      (ngModelChange)="updateField('street', $event)"
+    />
+
+    <label for="city">City</label>
+    <input
+      id="city"
+      name="city"
+      class="input-field"
+      type="text"
+      [ngModel]="address().city"
+      (ngModelChange)="updateField('city', $event)"
+    />
+
+    <label for="state">State / Province</label>
+    <input
+      id="state"
+      name="state"
+      class="input-field"
+      type="text"
+      [ngModel]="address().state"
+      (ngModelChange)="updateField('state', $event)"
+    />
+
+    <label for="zip">ZIP / Postal Code</label>
+    <input
+      id="zip"
+      name="zip"
+      class="input-field"
+      type="text"
+      [ngModel]="address().zip"
+      (ngModelChange)="updateField('zip', $event)"
+    />
+
+    <label for="country">Country</label>
+    <input
+      id="country"
+      name="country"
+      class="input-field"
+      type="text"
+      [ngModel]="address().country"
+      (ngModelChange)="updateField('country', $event)"
+    />
+
+    <button class="save-button" type="submit">Save Address</button>
+    <div class="save-message" *ngIf="saved()">{{ saved() }}</div>
+  </form>
+</div>
