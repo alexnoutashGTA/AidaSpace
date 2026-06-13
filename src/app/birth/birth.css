@@ -1,0 +1,20 @@
+div{
+  padding: 50px
+}
+
+input{
+  margin-bottom: 200px;
+}
+
+button{
+  padding: 50px;
+}
+
+#ReeditedCheckBox{
+  color: blue;
+  background: red;
+}
+
+.test{
+  color: yellow;
+}
