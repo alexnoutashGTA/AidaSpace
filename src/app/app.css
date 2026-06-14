@@ -1,6 +1,6 @@
 .app-shell {
   min-height: 100vh;
-  background: #e0f2fe;
+  background: #ffe4e6;
 }
 
 .app-nav {
@@ -9,8 +9,8 @@
   flex-wrap: wrap;
   align-items: center;
   padding: 1rem 1.5rem;
-  background: #dbeafe;
-  border-bottom: 1px solid #bfdbfe;
+  background: #ffe4ec;
+  border-bottom: 1px solid #fecdd3;
 }
 
 .app-nav a {

@@ -11,8 +11,12 @@ button{
 }
 
 #ReeditedCheckBox{
-  color: blue;
-  background: red;
+  color: #ffffff;
+  background: #16a34a;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  border-radius: 0.5rem;
+  border: none;
 }
 
 .test{

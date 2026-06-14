@@ -11,6 +11,7 @@ interface AddressModel {
 }
 
 @Component({
+  standalone: true,
   selector: 'app-address',
   imports: [CommonModule, FormsModule],
   templateUrl: './address.html',
