@@ -67,4 +67,37 @@
     <button class="save-button" type="submit">Save Address</button>
     <div class="save-message" *ngIf="saved()">{{ saved() }}</div>
   </form>
+
+  <section class="address-table-section">
+    <h2>All Saved Addresses</h2>
+
+    <div class="table-status">
+      <span *ngIf="loading()">Loading addresses...</span>
+      <span class="error-message" *ngIf="!loading() && error()">{{ error() }}</span>
+      <span *ngIf="!loading() && !error() && addresses().length === 0">No addresses found.</span>
+    </div>
+
+    <div class="table-wrapper" *ngIf="!loading() && !error() && addresses().length > 0">
+      <table class="address-table">
+        <thead>
+          <tr>
+            <th>Street</th>
+            <th>City</th>
+            <th>State</th>
+            <th>ZIP</th>
+            <th>Country</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of addresses()">
+            <td>{{ item.street }}</td>
+            <td>{{ item.city }}</td>
+            <td>{{ item.state }}</td>
+            <td>{{ item.zip }}</td>
+            <td>{{ item.country }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 </div>

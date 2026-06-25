@@ -78,3 +78,47 @@
   color: #16a34a;
   font-weight: 600;
 }
+
+.address-table-section {
+  padding: 1rem 0;
+}
+
+.table-status {
+  margin-bottom: 1rem;
+  color: #475569;
+  font-weight: 600;
+}
+
+.error-message {
+  color: #dc2626;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 1rem;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+}
+
+.address-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.address-table th,
+.address-table td {
+  padding: 0.95rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.address-table th {
+  background: #f1f5f9;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.address-table tbody tr:hover {
+  background: #f8fafc;
+}

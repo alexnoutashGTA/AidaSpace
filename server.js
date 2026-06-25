@@ -7,7 +7,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const corsOptions = {
-  origin: process.env.ALLOWED_ORIGIN || 'http://localhost:4200',
+  origin: process.env.ALLOWED_ORIGIN || 'http://localhost:4200' || 'http://localhost',
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -22,71 +22,24 @@ app.use((req, res, next) => {
 });
 app.use(express.json());
 
-const dbPort = process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : undefined;
+const dbPort = process.env.DB_PORT || '51657';
+const connectionString = process.env.DB_CONNECTION_STRING ||
+  `Server=127.0.0.1,${dbPort};Database=AidaSpace;User Id=Daryaarjmand;Password=Daryaarjmand1234!;Encrypt=true;TrustServerCertificate=true;`;
 
-const sqlConfig = {
-  server: process.env.DB_SERVER || 'localhost',
+console.log('Starting server with SQL connection:', {
+  server: '127.0.0.1',
   port: dbPort,
-  database: process.env.DB_NAME || 'AidaSpace',
-  authentication: {
-    type: 'ntlm',
-    options: {
-      domain: process.env.DB_DOMAIN || '',
-      userName: process.env.DB_USER || '',
-      password: process.env.DB_PASSWORD || ''
-    }
-  },
-  options: {
-    encrypt: true,
-    trustServerCertificate: true
-  }
-};
-
-// If no explicit port provided, use instanceName (will use SQL Browser)
-if (!dbPort) {
-  sqlConfig.options.instanceName = process.env.DB_INSTANCE || 'MSSQLSERVER';
-}
-
-if (!process.env.DB_USER || !process.env.DB_PASSWORD) {
-  console.warn('Windows authentication requires DB_USER and DB_PASSWORD environment variables.');
-}
-
-console.log('Starting server with SQL config:', {
-  server: sqlConfig.server,
-  database: sqlConfig.database,
-  port: sqlConfig.port || undefined,
-  instanceName: sqlConfig.options.instanceName || undefined,
-  domain: sqlConfig.authentication.options.domain || undefined,
-  userName: sqlConfig.authentication.options.userName ? '***' : undefined
+  database: 'AidaSpace',
+  user: 'Daryaarjmand'
 });
 
-// Choose driver: prefer native msnodesqlv8 for Windows integrated auth when available
-try {
-  if (!process.env.DB_USER && !process.env.DB_PASSWORD) {
-    // try native driver
-    const native = require('mssql/msnodesqlv8');
-    sql = native;
-    usingNativeDriver = true;
-    // msnodesqlv8 uses connectionString
-    const instanceSuffix = sqlConfig.options && sqlConfig.options.instanceName ? `\\${sqlConfig.options.instanceName}` : '';
-    sqlConfig.connectionString = `Driver={SQL Server Native Client 11.0};Server=${sqlConfig.server}${instanceSuffix};Database=${sqlConfig.database};Trusted_Connection=Yes;`;
-    console.log('Using msnodesqlv8 native driver for Windows integrated authentication.');
-  } else {
-    sql = require('mssql');
-  }
-} catch (e) {
-  // fallback to pure JS driver
-  sql = require('mssql');
-  if (!process.env.DB_USER && !process.env.DB_PASSWORD) {
-    console.warn('msnodesqlv8 native driver not available. Windows integrated auth may not work. To enable, install msnodesqlv8 and its build prerequisites (Python and Windows build tools), or set DB_USER/DB_PASSWORD to use SQL auth.');
-  }
-}
+sql = require('mssql');
 
 let pool;
 async function getPool() {
   if (!pool) {
     try {
-      pool = await sql.connect(sqlConfig);
+      pool = await sql.connect(connectionString);
     } catch (e) {
       try {
         console.error('DB connection error:', e && (e.message || e));
