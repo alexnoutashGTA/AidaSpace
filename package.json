@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "server": "node server.js"
   },
   "private": true,
   "packageManager": "npm@11.12.1",
@@ -17,7 +18,12 @@
     "@angular/forms": "^21.2.0",
     "@angular/platform-browser": "^21.2.0",
     "@angular/router": "^21.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "msnodesqlv8": "^5.2.0",
+    "mssql": "^9.1.1",
     "rxjs": "~7.8.0",
+    "tedious": "^14.3.0",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
